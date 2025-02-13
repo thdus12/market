@@ -5,10 +5,12 @@ import com.allra.market.core.config.error.entity.ErrorCode;
 import com.allra.market.domain.common.provider.CustomerProvider;
 import com.allra.market.domain.customer.entity.Customer;
 import com.allra.market.domain.customer.entity.CustomerCart;
+import com.allra.market.domain.customer.model.dto.request.PatchCustomerCartRequest;
 import com.allra.market.domain.customer.model.dto.request.PostCustomerCartRequest;
 import com.allra.market.domain.customer.model.dto.response.GetCustomerCartProductResponse;
 import com.allra.market.domain.customer.model.dto.response.GetCustomerCartResponse;
 import com.allra.market.domain.customer.repository.CustomerCartRepository;
+import com.allra.market.domain.customer.type.QuantityType;
 import com.allra.market.domain.product.entity.Product;
 import com.allra.market.domain.product.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
@@ -62,5 +64,26 @@ public class CustomerCartService {
         }
 
         return true;
+    }
+
+    // 장바구니 상품 수량 수정
+    public Boolean updateQuantity(Long id, PatchCustomerCartRequest dto) {
+        CustomerCart cart = getCustomerCart(id);
+        if (!cart.getProduct().getEnabled()) {
+            throw new ApiException(ErrorCode.DATA_NOT_FOUND, "존재하지 않는 상품 입니다.");
+        }
+
+        if (dto.getType() == QuantityType.PLUS) {
+            cart.incrementQuantity();
+        } else {
+            cart.decrementQuantity();
+        }
+
+        return true;
+    }
+
+    private CustomerCart getCustomerCart(Long id) {
+        return customerCartRepository.findById(id)
+                .orElseThrow(() -> new ApiException(ErrorCode.DATA_NOT_FOUND, "장바구니 항목을 찾을 수 없습니다."));
     }
 }
