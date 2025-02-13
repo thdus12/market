@@ -1,6 +1,8 @@
 package com.allra.market.domain.product.entity;
 
 import com.allra.market.domain.common.entity.BaseTimeEntity;
+import com.allra.market.domain.product.model.dto.request.PostProductRequest;
+import com.allra.market.domain.product.model.dto.request.PutProductRequest;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -51,6 +53,21 @@ public class Product extends BaseTimeEntity implements Serializable {
     @ColumnDefault("1")
     @Comment("활성화 여부(삭제 여부)")
     private Boolean enabled;
+
+    public Product(PostProductRequest dto) {
+        this.name = dto.getName();
+        this.description = dto.getDescription();
+        this.price = dto.getPrice();
+        this.quantity = dto.getQuantity();
+        this.enabled = true;
+    }
+
+    public void update(PutProductRequest dto) {
+        this.name = dto.getName();
+        this.description = dto.getDescription();
+        this.price = dto.getPrice();
+        this.quantity = dto.getQuantity();
+    }
 
     public void updateQuantity(int quantity) {
         this.quantity = quantity;

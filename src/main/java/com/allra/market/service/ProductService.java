@@ -4,6 +4,8 @@ import com.allra.market.core.config.error.entity.ApiException;
 import com.allra.market.core.config.error.entity.ErrorCode;
 import com.allra.market.domain.product.entity.Product;
 import com.allra.market.domain.product.model.dto.request.GetProductRequest;
+import com.allra.market.domain.product.model.dto.request.PostProductRequest;
+import com.allra.market.domain.product.model.dto.request.PutProductRequest;
 import com.allra.market.domain.product.model.dto.response.GetProductDetailResponse;
 import com.allra.market.domain.product.model.dto.response.GetProductResponse;
 import com.allra.market.domain.product.repository.ProductRepository;
@@ -28,6 +30,19 @@ public class ProductService {
     public GetProductDetailResponse detail(Long id) {
         Product product = getProduct(id);
         return new GetProductDetailResponse(product);
+    }
+
+    public Boolean insert(PostProductRequest dto) {
+        Product product = new Product(dto);
+        productRepository.save(product);
+
+        return true;
+    }
+
+    public Boolean update(Long id, PutProductRequest dto) {
+        Product product = getProduct(id);
+        product.update(dto);
+        return true;
     }
 
     private Product getProduct(Long id) {
