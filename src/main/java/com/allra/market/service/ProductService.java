@@ -1,0 +1,37 @@
+package com.allra.market.service;
+
+import com.allra.market.core.config.error.entity.ApiException;
+import com.allra.market.core.config.error.entity.ErrorCode;
+import com.allra.market.domain.product.entity.Product;
+import com.allra.market.domain.product.model.dto.request.GetProductRequest;
+import com.allra.market.domain.product.model.dto.response.GetProductDetailResponse;
+import com.allra.market.domain.product.model.dto.response.GetProductResponse;
+import com.allra.market.domain.product.repository.ProductRepository;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+@Slf4j
+@Service
+@RequiredArgsConstructor
+@Transactional(rollbackFor = Exception.class)
+public class ProductService {
+    private final ProductRepository productRepository;
+
+    public Page<GetProductResponse> list(GetProductRequest dto, Pageable pageable) {
+        return productRepository.search(dto, pageable);
+    }
+
+    public GetProductDetailResponse detail(Long id) {
+        Product product = getProduct(id);
+        return new GetProductDetailResponse(product);
+    }
+
+    private Product getProduct(Long id) {
+        return productRepository.findByIdAndEnabledIsTrue(id)
+            .orElseThrow(() -> new ApiException(ErrorCode.DATA_NOT_FOUND, "존재하지 않는 상품 입니다."));
+    }
+}
