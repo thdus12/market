@@ -58,6 +58,9 @@ public class ProductRepositoryImpl implements ProductRepositoryQueryDsl {
         BooleanBuilder builder = new BooleanBuilder();
         // 활성화 된 상품만
         builder.and(product.enabled.eq(true));
+        // 품절된 상품 제외
+        builder.and(product.quantity.gt(0));
+
         // 등록일 기준 조회
         builder.and(createdDateBetween(dto.getStartDate(), dto.getEndDate()));
 
