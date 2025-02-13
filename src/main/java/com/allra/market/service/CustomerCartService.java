@@ -82,6 +82,20 @@ public class CustomerCartService {
         return true;
     }
 
+    // 장바구니 상품 삭제
+    public Boolean delete(Long id) {
+        CustomerCart cart = getCustomerCart(id);
+        customerCartRepository.delete(cart);
+        return true;
+    }
+
+    // 장바구니 비우기
+    public Boolean clear() {
+        Customer customer = customerProvider.getCustomer();
+        customerCartRepository.deleteAllByCustomer(customer);
+        return true;
+    }
+
     private CustomerCart getCustomerCart(Long id) {
         return customerCartRepository.findById(id)
                 .orElseThrow(() -> new ApiException(ErrorCode.DATA_NOT_FOUND, "장바구니 항목을 찾을 수 없습니다."));
