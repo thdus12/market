@@ -1,0 +1,40 @@
+server:
+    port: 443
+    ssl:
+        key-store: ssl/keystore.p12
+        key-store-password: q1w2e3r4!!
+        keyStoreType: PKCS12
+        keyAlias: spring-boot-allra-market
+    http2:
+        enabled: true
+    servlet:
+        context-path: /
+
+spring:
+    profiles:
+        active: local
+    mvc:
+        format:
+            date-time: "yyyy-MM-dd HH:mm:ss"
+    data:
+        web:
+            pageable:
+                max-page-size: 50
+    jpa:
+        hibernate:
+            naming:
+                implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
+                physical-strategy: org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy
+        properties:
+            hibernate:
+                default_batch_fetch_size: 50
+                dialect: org.hibernate.dialect.MariaDBDialect
+                format_sql: true
+                jdbc:
+                    time_zone: Asia/Seoul
+logging:
+    level:
+        com:
+            allra:
+                market: info
+        root: error
