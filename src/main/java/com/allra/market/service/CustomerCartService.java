@@ -1,5 +1,6 @@
 package com.allra.market.service;
 
+import com.allra.market.domain.customer.model.dto.response.GetCustomerCartProductResponse;
 import com.allra.market.domain.customer.model.dto.response.GetCustomerCartResponse;
 import com.allra.market.domain.customer.repository.CustomerCartRepository;
 import lombok.RequiredArgsConstructor;
@@ -17,8 +18,16 @@ public class CustomerCartService {
     private final CustomerCartRepository customerCartRepository;
 
     // 장바구니 목록 조회
-    public List<GetCustomerCartResponse> list() {
-        return customerCartRepository.search();
+    public GetCustomerCartResponse list() {
+        // 상품 목록
+        List<GetCustomerCartProductResponse> products = customerCartRepository.search();
+
+        // 총 결제 금액
+        Integer totalAmount = Math.toIntExact(products.stream()
+                .mapToLong(p-> p.getProductPrice() * p.getQuantity())
+                .sum());
+
+        return new GetCustomerCartResponse(totalAmount, products);
     }
 
     // 장바구니 추가

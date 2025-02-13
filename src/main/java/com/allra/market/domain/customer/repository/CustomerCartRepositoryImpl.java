@@ -1,7 +1,9 @@
 package com.allra.market.domain.customer.repository;
 
-import com.allra.market.domain.customer.model.dto.response.GetCustomerCartResponse;
-import com.allra.market.domain.customer.model.dto.response.QGetCustomerCartResponse;
+import com.allra.market.domain.customer.model.dto.response.GetCustomerCartProductResponse;
+import com.allra.market.domain.customer.model.dto.response.QGetCustomerCartProductResponse;
+import com.querydsl.core.BooleanBuilder;
+import com.querydsl.core.types.Predicate;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 
@@ -14,20 +16,31 @@ import static com.allra.market.domain.product.entity.QProduct.product;
 public class CustomerCartRepositoryImpl implements CustomerCartRepositoryQueryDsl {
     private final JPAQueryFactory queryFactory;
 
-
     @Override
-    public List<GetCustomerCartResponse> search() {
+    public List<GetCustomerCartProductResponse> search() {
         return queryFactory
-            .select(new QGetCustomerCartResponse(
+            .select(new QGetCustomerCartProductResponse(
+                customerCart.id,
+                customerCart.quantity,
                 product.id,
                 product.name,
-                product.quantity,
-                customerCart.quantity
+                product.price
             ))
             .from(customerCart)
             .leftJoin(customerCart.customer)
             .leftJoin(customerCart.product, product)
+            .where(searchFilter())
             .orderBy(customerCart.createdDate.desc())
             .fetch();
+    }
+
+    private Predicate searchFilter() {
+        BooleanBuilder builder = new BooleanBuilder();
+        // 삭제 여부
+        builder.and(product.enabled.eq(true));
+        // 품절 여부
+        builder.and(product.quantity.gt(0));
+
+        return builder;
     }
 }
