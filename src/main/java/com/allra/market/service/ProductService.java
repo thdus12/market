@@ -45,6 +45,12 @@ public class ProductService {
         return true;
     }
 
+    public Boolean delete(Long id) {
+        Product product = getProduct(id);
+        product.disabled();
+        return true;
+    }
+
     private Product getProduct(Long id) {
         return productRepository.findByIdAndEnabledIsTrue(id)
             .orElseThrow(() -> new ApiException(ErrorCode.DATA_NOT_FOUND, "존재하지 않는 상품 입니다."));
