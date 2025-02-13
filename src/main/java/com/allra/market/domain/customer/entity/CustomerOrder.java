@@ -24,10 +24,7 @@ import java.util.List;
 @DynamicUpdate
 @EntityListeners(AuditingEntityListener.class)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class CustomerOrder extends BaseTimeEntity implements Serializable {
-    @Serial
-    private static final long serialVersionUID = -8787152271426160012L;
-
+public class CustomerOrder extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

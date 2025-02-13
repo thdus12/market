@@ -23,9 +23,7 @@ import java.io.Serializable;
 @DynamicUpdate
 @EntityListeners(AuditingEntityListener.class)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Product extends BaseTimeEntity implements Serializable {
-    @Serial
-    private static final long serialVersionUID = 6902416436251114735L;
+public class Product extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
