@@ -9,9 +9,6 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import java.io.Serial;
-import java.io.Serializable;
-
 @Entity
 @Getter
 @Comment("사용자 장바구니")
@@ -19,10 +16,7 @@ import java.io.Serializable;
 @DynamicUpdate
 @EntityListeners(AuditingEntityListener.class)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class CustomerCart extends BaseTimeEntity implements Serializable {
-    @Serial
-    private static final long serialVersionUID = -8787152271426160012L;
-
+public class CustomerCart extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -43,7 +37,7 @@ public class CustomerCart extends BaseTimeEntity implements Serializable {
     @Column(nullable = false)
     @ColumnDefault("1")
     @Comment("수량")
-    private Integer quantity;  // 수량 필드 추가 필요
+    private Integer quantity;
 
     public CustomerCart(Customer customer, Product product, Integer quantity) {
         this.customer = customer;
@@ -51,13 +45,12 @@ public class CustomerCart extends BaseTimeEntity implements Serializable {
         this.quantity = quantity;
     }
 
-    public void updateQuantity(int quantity) {
-        this.quantity = quantity;
+    public void incrementQuantity() {
+        this.quantity++;
     }
 
-    // 주문 금액 계산
-    public long getTotalPrice() {
-        return product.getPrice() * quantity;
+    public void decrementQuantity() {
+        this.quantity--;
     }
 }
 

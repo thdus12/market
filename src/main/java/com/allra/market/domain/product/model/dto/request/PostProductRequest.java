@@ -1,5 +1,6 @@
 package com.allra.market.domain.product.model.dto.request;
 
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
@@ -18,9 +19,11 @@ public class PostProductRequest {
 
     // 결제 금액
     @NotNull
+    @Min(0)
     private Long price;
 
     // 수량
     @NotNull
+    @Min(1)
     private Integer quantity;
 }

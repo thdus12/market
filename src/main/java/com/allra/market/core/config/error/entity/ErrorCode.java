@@ -19,9 +19,10 @@ public enum ErrorCode {
     INVALID_DATA(HttpStatus.BAD_REQUEST),
     DATA_NOT_FOUND(HttpStatus.BAD_REQUEST),
     USER_NOT_FOUND(HttpStatus.BAD_REQUEST),
+    SOLD_OUT(HttpStatus.BAD_REQUEST),
     ;
 
-    private HttpStatus status;
+    private final HttpStatus status;
 
     ErrorCode(final HttpStatus status) {
         this.status = status;
