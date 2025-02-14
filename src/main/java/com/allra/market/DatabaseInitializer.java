@@ -26,7 +26,7 @@ public class DatabaseInitializer {
         public void dbInit() {
             // 사용자 임시 데이터 추가
             if (customerRepository.count() == 0) {
-                customerRepository.save(new Customer("user@test.com", "사용자"));
+                customerRepository.save(new Customer("bthdus5890@gmail.com", "배소연"));
             }
         }
     }
