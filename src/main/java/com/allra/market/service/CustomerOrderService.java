@@ -9,6 +9,8 @@ import com.allra.market.domain.customer.entity.CustomerOrder;
 import com.allra.market.domain.customer.entity.CustomerOrderProduct;
 import com.allra.market.domain.customer.model.dto.request.PostCustomerOrderCartPaymentRequest;
 import com.allra.market.domain.customer.model.dto.request.PostCustomerOrderPaymentRequest;
+import com.allra.market.domain.customer.model.dto.response.GetCustomerOrderProductResponse;
+import com.allra.market.domain.customer.model.dto.response.GetCustomerOrderResponse;
 import com.allra.market.domain.customer.repository.CustomerOrderRepository;
 import com.allra.market.domain.customer.type.OrderStatus;
 import com.allra.market.domain.payment.client.PaymentClient;
@@ -66,10 +68,13 @@ public class CustomerOrderService {
                 payment.approve(response.getTransactionId());
                 product.decreaseStock(dto.getQuantity());
                 return true;
+            } else if (response.getStatus() == PaymentStatus.PENDING){
+                // 결제 대기
+                return true;
             } else {
                 // 결제 실패
                 payment.fail();
-                return false;
+                throw new ApiException(ErrorCode.PAYMENT_FAILED, "결제에 실패했습니다.");
             }
 
         } catch (Exception e) {
@@ -89,8 +94,8 @@ public class CustomerOrderService {
 
         // 총 결제 금액
         Long totalAmount = carts.stream()
-            .mapToLong(c -> c.getProduct().getPrice() * c.getQuantity())
-            .sum();
+                .mapToLong(c -> c.getProduct().getPrice() * c.getQuantity())
+                .sum();
 
         // 주문 생성
         CustomerOrder customerOrder = new CustomerOrder(customer, OrderStatus.PENDING, totalAmount);
@@ -117,10 +122,13 @@ public class CustomerOrderService {
                 // 장바구니 비우기
                 customerCartService.clear();
                 return true;
+            } else if (response.getStatus() == PaymentStatus.PENDING){
+                // 결제 대기
+                return true;
             } else {
                 // 결제 실패
                 payment.fail();
-                return false;
+                throw new ApiException(ErrorCode.PAYMENT_FAILED, "결제에 실패했습니다.");
             }
         } catch (Exception e) {
             log.error("주문 처리 중 오류 발생", e);

@@ -21,7 +21,8 @@ public enum ErrorCode {
     DATA_NOT_FOUND(HttpStatus.BAD_REQUEST),
     USER_NOT_FOUND(HttpStatus.BAD_REQUEST),
     SOLD_OUT(HttpStatus.BAD_REQUEST),
-    OUT_OF_STOCK(HttpStatus.BAD_REQUEST);
+    OUT_OF_STOCK(HttpStatus.BAD_REQUEST),
+    PAYMENT_FAILED(HttpStatus.BAD_REQUEST);
 
     private final HttpStatus status;
 
