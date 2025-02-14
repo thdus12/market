@@ -35,9 +35,9 @@ public class CustomerCartService {
         List<GetCustomerCartProductResponse> products = customerCartRepository.search();
 
         // 총 결제 금액
-        Integer totalAmount = Math.toIntExact(products.stream()
+        Long totalAmount = products.stream()
                 .mapToLong(p-> p.getProductPrice() * p.getQuantity())
-                .sum());
+            .sum();
 
         return new GetCustomerCartResponse(totalAmount, products);
     }
@@ -96,8 +96,12 @@ public class CustomerCartService {
         return true;
     }
 
-    private CustomerCart getCustomerCart(Long id) {
+    public CustomerCart getCustomerCart(Long id) {
         return customerCartRepository.findById(id)
                 .orElseThrow(() -> new ApiException(ErrorCode.DATA_NOT_FOUND, "장바구니 항목을 찾을 수 없습니다."));
+    }
+
+    public List<CustomerCart> getCustomerCarts(Customer customer) {
+        return customerCartRepository.findAllByCustomer(customer);
     }
 }

@@ -6,12 +6,14 @@ import jakarta.persistence.EntityManager;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.ApplicationPidFileWriter;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 import java.util.Locale;
 import java.util.TimeZone;
 
+@EnableFeignClients
 @EnableJpaAuditing
 @SpringBootApplication
 public class MarketApplication {

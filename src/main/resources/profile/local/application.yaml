@@ -38,3 +38,5 @@ logging:
             allra:
                 market: info
         root: error
+payment:
+    domain: "https://allra-market.free.beeceptor.com"
