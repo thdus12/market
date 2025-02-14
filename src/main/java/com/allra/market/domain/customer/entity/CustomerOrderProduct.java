@@ -1,7 +1,7 @@
-package com.allra.market.domain.product.entity;
+package com.allra.market.domain.customer.entity;
 
 import com.allra.market.domain.common.entity.BaseTimeEntity;
-import com.allra.market.domain.customer.entity.CustomerOrder;
+import com.allra.market.domain.product.entity.Product;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -19,7 +19,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @DynamicUpdate
 @EntityListeners(AuditingEntityListener.class)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class ProductOrder extends BaseTimeEntity {
+public class CustomerOrderProduct extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -43,7 +43,8 @@ public class ProductOrder extends BaseTimeEntity {
     private Long price;
 
     @Builder
-    public ProductOrder(Product product, Integer quantity) {
+    public CustomerOrderProduct(CustomerOrder order, Product product, Integer quantity) {
+        this.order = order;
         this.product = product;
         this.quantity = quantity;
         this.price = product.getPrice();
