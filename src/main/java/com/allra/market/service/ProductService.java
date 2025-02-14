@@ -29,6 +29,11 @@ public class ProductService {
 
     public GetProductDetailResponse detail(Long id) {
         Product product = getProduct(id);
+
+        if (product.getQuantity() == 0) {
+            throw new ApiException(ErrorCode.SOLD_OUT, "품절된 상품 입니다.");
+        }
+
         return new GetProductDetailResponse(product);
     }
 
