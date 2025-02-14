@@ -40,6 +40,18 @@ public class CustomerOrderService {
     private final CustomerOrderRepository customerOrderRepository;
     private final PaymentRepository paymentRepository;
 
+    public List<GetCustomerOrderResponse> list() {
+        Customer customer = customerProvider.getCustomer();
+        List<CustomerOrder> customerOrders = customerOrderRepository.findByCustomerOrderByCreatedDateDesc(customer);
+
+        return customerOrders.stream()
+                .map(order -> {
+                    List<GetCustomerOrderProductResponse> products = customerOrderRepository.search(order.getId());
+                    return new GetCustomerOrderResponse(order.getId(), order.getTotalAmount(), order.getStatus(), products);
+                })
+                .toList();
+    }
+
     // 바로 구매
     public Boolean direct(PostCustomerOrderPaymentRequest dto) {
         Customer customer = customerProvider.getCustomer();

@@ -49,12 +49,4 @@ public class CustomerOrderProduct extends BaseTimeEntity {
         this.quantity = quantity;
         this.price = product.getPrice();
     }
-
-    public Long getTotalPrice() {
-        return price * quantity;
-    }
-
-    protected void setOrder(CustomerOrder order) {
-        this.order = order;
-    }
 }
