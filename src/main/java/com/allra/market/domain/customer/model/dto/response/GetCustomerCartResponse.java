@@ -8,11 +8,11 @@ import java.util.List;
 @Getter
 @Setter
 public class GetCustomerCartResponse {
-    private Integer totalAmount;
+    private Long totalAmount;
     private List<GetCustomerCartProductResponse> products;
 
-    public GetCustomerCartResponse(Integer totalQuantity, List<GetCustomerCartProductResponse> products) {
-        this.totalAmount = totalQuantity;
+    public GetCustomerCartResponse(Long totalAmount, List<GetCustomerCartProductResponse> products) {
+        this.totalAmount = totalAmount;
         this.products = products;
     }
 }
