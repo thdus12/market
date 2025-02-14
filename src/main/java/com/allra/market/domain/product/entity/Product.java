@@ -13,9 +13,6 @@ import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import java.io.Serial;
-import java.io.Serializable;
-
 @Entity
 @Getter
 @Comment("상품")
@@ -73,6 +70,10 @@ public class Product extends BaseTimeEntity {
 
     public void disabled() {
         this.enabled = false;
+    }
+
+    public void decreaseStock(int quantity) {
+        this.quantity -= quantity;
     }
 }
 

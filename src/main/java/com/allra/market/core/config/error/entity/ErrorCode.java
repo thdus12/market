@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 @Getter
 public enum ErrorCode {
     INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR),
+    ORDER_FAILED(HttpStatus.INTERNAL_SERVER_ERROR),
 
     ACCESS_DENIED(HttpStatus.FORBIDDEN),
     JSON_PARSE_ERROR(HttpStatus.UNAUTHORIZED),
@@ -20,7 +21,7 @@ public enum ErrorCode {
     DATA_NOT_FOUND(HttpStatus.BAD_REQUEST),
     USER_NOT_FOUND(HttpStatus.BAD_REQUEST),
     SOLD_OUT(HttpStatus.BAD_REQUEST),
-    ;
+    OUT_OF_STOCK(HttpStatus.BAD_REQUEST);
 
     private final HttpStatus status;
 

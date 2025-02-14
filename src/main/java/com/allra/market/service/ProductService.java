@@ -60,4 +60,9 @@ public class ProductService {
         return productRepository.findByIdAndEnabledIsTrue(id)
             .orElseThrow(() -> new ApiException(ErrorCode.DATA_NOT_FOUND, "존재하지 않는 상품 입니다."));
     }
+
+    public Product findProductWithLock(Long id) {
+        return productRepository.findByIdWithLock(id)
+            .orElseThrow(() -> new ApiException(ErrorCode.DATA_NOT_FOUND, "존재하지 않는 상품 입니다."));
+    }
 }
