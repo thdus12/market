@@ -46,7 +46,7 @@ public class CustomerCartService {
     public Boolean insert(PostCustomerCartRequest dto) {
         Customer customer = customerProvider.getCustomer();
         Product product = productRepository.findByIdAndEnabledIsTrue(dto.getProductId())
-                .orElseThrow(() -> new ApiException(ErrorCode.DATA_NOT_FOUND, "존재하지 않는 상품 입니다."));
+                .orElseThrow(() -> new ApiException(ErrorCode.PRODUCT_NOT_FOUND, "존재하지 않는 상품 입니다."));
 
         if (product.getQuantity() == 0) {
             throw new ApiException(ErrorCode.SOLD_OUT, "품절된 상품 입니다.");
@@ -70,7 +70,7 @@ public class CustomerCartService {
     public Boolean updateQuantity(Long id, PatchCustomerCartRequest dto) {
         CustomerCart cart = getCustomerCart(id);
         if (!cart.getProduct().getEnabled()) {
-            throw new ApiException(ErrorCode.DATA_NOT_FOUND, "존재하지 않는 상품 입니다.");
+            throw new ApiException(ErrorCode.PRODUCT_NOT_FOUND, "존재하지 않는 상품 입니다.");
         }
 
         if (dto.getType() == QuantityType.PLUS) {
@@ -98,7 +98,7 @@ public class CustomerCartService {
 
     public CustomerCart getCustomerCart(Long id) {
         return customerCartRepository.findById(id)
-                .orElseThrow(() -> new ApiException(ErrorCode.DATA_NOT_FOUND, "장바구니 항목을 찾을 수 없습니다."));
+                .orElseThrow(() -> new ApiException(ErrorCode.CART_NOT_FOUND, "장바구니 항목을 찾을 수 없습니다."));
     }
 
     public List<CustomerCart> getCustomerCarts(Customer customer) {
