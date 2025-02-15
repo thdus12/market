@@ -64,10 +64,6 @@ public class Product extends BaseTimeEntity {
         this.quantity = dto.getQuantity();
     }
 
-    public void updateQuantity(int quantity) {
-        this.quantity = quantity;
-    }
-
     public void disabled() {
         this.enabled = false;
     }
