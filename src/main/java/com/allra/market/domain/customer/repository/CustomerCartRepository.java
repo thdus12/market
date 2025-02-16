@@ -13,5 +13,5 @@ public interface CustomerCartRepository extends JpaRepository<CustomerCart, Long
 
     void deleteAllByCustomer(Customer customer);
 
-    List<CustomerCart> findAllByCustomer(Customer customer);
+    List<CustomerCart> findAllByCustomerAndIdIn(Customer customer, List<Long> ids);
 }

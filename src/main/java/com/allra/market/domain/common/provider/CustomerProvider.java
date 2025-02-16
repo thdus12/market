@@ -14,7 +14,7 @@ public class CustomerProvider {
 
     // 임시 사용자 계정
     public Customer getCustomer() {
-        return customerRepository.findByEmail("user@test.com")
+        return customerRepository.findById(1L)
             .orElseThrow(() -> new ApiException(ErrorCode.USER_NOT_FOUND, "존재하지 않는 사용자 입니다."));
     }
 }

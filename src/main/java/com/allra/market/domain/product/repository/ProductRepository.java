@@ -13,6 +13,6 @@ public interface ProductRepository extends JpaRepository<Product, Long>, Product
     Optional<Product> findByIdAndEnabledIsTrue(Long id);
 
     @Lock(LockModeType.PESSIMISTIC_WRITE)
-    @Query("select p from Product p where p.id = :id")
+    @Query("select p from Product p where p.id = :id AND p.enabled = true")
     Optional<Product> findByIdWithLock(@Param("id") Long id);
 }
