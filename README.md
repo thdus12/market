@@ -1,10 +1,17 @@
-# 🛍️ Allra Market API
-Allra Market API는 상품 관리, 장바구니 관리, 주문 조회, 결제를 제공합니다.  
-개발자 : 배소연
+### 개발자 : 배소연
+프로젝트 기간 : 2025.02.13 ~ 2025.02.16
+<br><br>
+
+# 🛍️ 올라 마켓 API
+올라 마켓 API는 상품 관리, 장바구니 관리, 주문 조회, 결제를 제공합니다.  
+`DDD(Domain-Driven Design)`를 적용하여 도메인 중심으로 설계하였으며,
+각 도메인(상품, 장바구니, 결제)의 독립성과 응집도를 고려하여 개발하였습니다.    
+
+사용자는 별도의 로그인 없이(더미 데이터 사용) 장바구니에 상품을 담고 구매하는 형태로 서비스를 이용할 수 있습니다.
 <br><br><br>
 
 ## 🛠️ 개발 환경
-### 💻 **Backend**  
+### 💻 Backend
   [![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.4.2-green)](https://spring.io/projects/spring-boot)
   [![Java](https://img.shields.io/badge/Java-17-orange)](https://www.oracle.com/java/)
   [![Gradle](https://img.shields.io/badge/Gradle-8.12.1-blue)](https://gradle.org/)
@@ -12,15 +19,38 @@ Allra Market API는 상품 관리, 장바구니 관리, 주문 조회, 결제를
   [![QueryDSL](https://img.shields.io/badge/QueryDSL-5.6.1-brightgreen)](http://querydsl.com/)
   [![Spring%20Cloud](https://img.shields.io/badge/Spring%20Cloud-OpenFeign-purple)](https://spring.io/projects/spring-cloud-openfeign)
 
-### 🗄️ **Database**   
+### 🗄️ Database
 [![MariaDB](https://img.shields.io/badge/MariaDB-10.11-003545)](https://mariadb.org/)
 
-### 🔧 **Development Tools**   
+### 🔧 Development Tools
 [![IntelliJ IDEA](https://img.shields.io/badge/IntelliJ_IDEA-000000.svg?style=flat&logo=intellij-idea&logoColor=white)](https://www.jetbrains.com/idea/)
 [![GitHub](https://img.shields.io/badge/GitHub-181717.svg?style=flat&logo=github&logoColor=white)](https://github.com/)
 [![Postman](https://img.shields.io/badge/Postman-FF6C37?style=flat&logo=postman&logoColor=white)](https://www.postman.com/)
 [![Beeceptor](https://img.shields.io/badge/Beeceptor-FFD700?style=flat&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PC9zdmc+&logoColor=black)](https://beeceptor.com/)
-<br><br><br><br>
+<br><br><br>
+
+## 📁 프로젝트 구조
+```text
+src
+├── main
+│   ├── java
+│   │   └── com.allra.market
+│   │       ├── controller    # API endpoint
+│   │       ├── service       # 비즈니스 로직
+│   │       ├── domain        # 도메인 로직
+│   │       │   ├── customer  # 사용자 도메인
+│   │       │   ├── payment   # 결제 도메인
+│   │       │   └── product   # 상품 도메인
+│   │       └── core          # 공통 설정
+│   └── resources
+│       └── profile
+│           └── local         # local 환경 설정
+```
+<br><br><br>
+
+## 📜 ERD
+![ERD.png](description/erd/ERD.png)
+<br><br><br>
 
 ## 🚀 시작하기 
 ### 👤 Profile 설정
@@ -41,11 +71,10 @@ spring:
 
 ### 📫 Postman 설정
 `description/postman` 폴더에 있는 `올라 마켓.postman_collection.json`을 import하여 API 테스트를 진행할 수 있습니다.
-<br><br><br>
 
-## 📜 ERD
-![ERD.png](description/erd/ERD.png)
-<br><br><br><br>
+### 🔐 SSL 설정
+`/ssl/keystore.p12`에 인증서가 있습니다.
+<br><br><br>
 
 ## 📦 상품 관리 API
 > 상품을 관리하는 API입니다.
@@ -142,7 +171,7 @@ _상품의 정보를 수정합니다._
 _상품을 삭제합니다._ 
 - **Error Code**
   - `PRODUCT_NOT_FOUND`: 잘못된 상품 id를 요청한 경우
-<br><br><br><br>
+<br><br><br>
 
 ## 🛒 장바구니 관리 API
 > 사용자의 장바구니를 관리하는 API입니다.
@@ -265,9 +294,9 @@ _사용자의 주문 목록을 조회합니다._
       }
   ]
   ```
-<br><br><br><br>
+<br><br><br>
 
-### 💳 결제 API
+## 💳 결제 API
 > 장바구니 구매, 바로 구매를 통해 결제를 진행합니다.
 ### 🔄 주문 결제 프로세스
 ![img.png](description/process/주문_결제_프로세스.png)
@@ -335,4 +364,4 @@ _장바구니에 담은 상품을 구매합니다._
   - `PRODUCT_NOT_FOUND`: 잘못된 상품 id를 요청한 경우
   - `OUT_OF_STOCK`: 재고 부족
   - `SOLD_OUT`: 상품 품절
-<br><br><br><br>
+<br><br><br>
