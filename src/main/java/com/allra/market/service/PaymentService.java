@@ -118,7 +118,7 @@ public class PaymentService {
                 return PaymentStatus.PENDING;
             } else {
                 payment.fail();
-                throw new ApiException(ErrorCode.PAYMENT_FAILED, "결제에 실패했습니다.");
+                return PaymentStatus.FAILED;
             }
         } catch (Exception e) {
             log.error("결제 처리 중 오류 발생", e);
