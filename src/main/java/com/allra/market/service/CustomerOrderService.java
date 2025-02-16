@@ -3,7 +3,7 @@ package com.allra.market.service;
 import com.allra.market.domain.common.provider.CustomerProvider;
 import com.allra.market.domain.customer.entity.Customer;
 import com.allra.market.domain.customer.entity.CustomerOrder;
-import com.allra.market.domain.customer.model.dto.response.GetCustomerOrderProductResponse;
+import com.allra.market.domain.customer.model.dto.request.GetCustomerOrderRequest;
 import com.allra.market.domain.customer.model.dto.response.GetCustomerOrderResponse;
 import com.allra.market.domain.customer.repository.CustomerOrderRepository;
 import lombok.RequiredArgsConstructor;
@@ -21,16 +21,9 @@ public class CustomerOrderService {
     private final CustomerProvider customerProvider;
     private final CustomerOrderRepository customerOrderRepository;
 
-    public List<GetCustomerOrderResponse> list() {
+    public List<GetCustomerOrderResponse> list(GetCustomerOrderRequest dto) {
         Customer customer = customerProvider.getCustomer();
-        List<CustomerOrder> customerOrders = customerOrderRepository.findByCustomerOrderByCreatedDateDesc(customer);
-
-        return customerOrders.stream()
-                .map(order -> {
-                    List<GetCustomerOrderProductResponse> products = customerOrderRepository.search(order.getId());
-                    return new GetCustomerOrderResponse(order.getId(), order.getTotalAmount(), order.getStatus(), products);
-                })
-                .toList();
+        return customerOrderRepository.search(customer.getId(), dto);
     }
 
     public void save(CustomerOrder customerOrder) {
