@@ -1,6 +1,7 @@
 # 🛍️ Allra Market API
 Allra Market API는 상품 관리, 장바구니 관리, 주문 조회, 결제를 제공합니다.  
 개발자 : 배소연
+<br><br><br>
 
 ## 🛠️ 개발 환경
 ### 💻 **Backend**  
@@ -19,6 +20,7 @@ Allra Market API는 상품 관리, 장바구니 관리, 주문 조회, 결제를
 [![GitHub](https://img.shields.io/badge/GitHub-181717.svg?style=flat&logo=github&logoColor=white)](https://github.com/)
 [![Postman](https://img.shields.io/badge/Postman-FF6C37?style=flat&logo=postman&logoColor=white)](https://www.postman.com/)
 [![Beeceptor](https://img.shields.io/badge/Beeceptor-FFD700?style=flat&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PC9zdmc+&logoColor=black)](https://beeceptor.com/)
+<br><br><br><br>
 
 ## 🚀 시작하기 
 ### 👤 Profile 설정
@@ -39,9 +41,11 @@ spring:
 
 ### 📫 Postman 설정
 `description/postman` 폴더에 있는 `올라 마켓.postman_collection.json`을 import하여 API 테스트를 진행할 수 있습니다.
+<br><br><br>
 
 ## 📜 ERD
 ![ERD.png](description/erd/ERD.png)
+<br><br><br><br>
 
 ## 📦 상품 관리 API
 > 상품을 관리하는 API입니다.
@@ -93,6 +97,7 @@ _검색 조건에 맞는 상품 목록을 조회합니다._
         "empty": false
     }
     ```
+
 ### 🌿 상세 `GET` `/api/products/{id}`
 _상품의 상세 정보를 조회합니다._
 - **Response**
@@ -137,6 +142,7 @@ _상품의 정보를 수정합니다._
 _상품을 삭제합니다._ 
 - **Error Code**
   - `PRODUCT_NOT_FOUND`: 잘못된 상품 id를 요청한 경우
+<br><br><br><br>
 
 ## 🛒 장바구니 관리 API
 > 사용자의 장바구니를 관리하는 API입니다.
@@ -201,6 +207,7 @@ _장바구니에 담은 상품을 삭제합니다._
 
 ### 🌿 전체 비우기 `DELETE` `/api/customers/carts/clear`
 _장바구니를 모두 비웁니다._
+<br><br><br><br>
 
 ## 📋 주문 조회 API
 > 사용자의 주문을 조회하는 API입니다.
@@ -258,6 +265,7 @@ _사용자의 주문 목록을 조회합니다._
       }
   ]
   ```
+<br><br><br><br>
 
 ### 💳 결제 API
 > 장바구니 구매, 바로 구매를 통해 결제를 진행합니다.
@@ -327,3 +335,4 @@ _장바구니에 담은 상품을 구매합니다._
   - `PRODUCT_NOT_FOUND`: 잘못된 상품 id를 요청한 경우
   - `OUT_OF_STOCK`: 재고 부족
   - `SOLD_OUT`: 상품 품절
+<br><br><br><br>
