@@ -1,7 +1,9 @@
 package com.allra.market.controller.customer;
 
+import com.allra.market.domain.customer.model.dto.request.GetCustomerOrderRequest;
 import com.allra.market.domain.customer.model.dto.response.GetCustomerOrderResponse;
 import com.allra.market.service.CustomerOrderService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,7 +20,7 @@ public class CustomerOrderController {
 
     // 주문 목록
     @GetMapping
-    public ResponseEntity<List<GetCustomerOrderResponse>> list() {
-        return ResponseEntity.ok(customerOrderService.list());
+    public ResponseEntity<List<GetCustomerOrderResponse>> list(@Valid GetCustomerOrderRequest dto) {
+        return ResponseEntity.ok(customerOrderService.list(dto));
     }
 }
