@@ -210,7 +210,7 @@ _상품의 수량을 지정하여 장바구니에 상품을 담습니다._
     }
     ```
 - **Error Code**
-  - `OUT_OF_STOCK`: 재고 부족
+  - `OUT_OF_STOCK`: 재고 부족 (body에 재고 부족한 상품 id 목록 반환)
   - `SOLD_OUT`: 상품 품절
 
 ### 🌿 수량 수정 `PATCH` `/api/customers/carts/{id}/quantity`
@@ -332,7 +332,7 @@ _상품을 바로 구매합니다._
     ```
 - **Error Code**
   - `PRODUCT_NOT_FOUND`: 잘못된 상품 id를 요청한 경우
-  - `OUT_OF_STOCK`: 재고 부족
+  - `OUT_OF_STOCK`: 재고 부족 (body에 재고 부족한 상품 id 목록 반환)
   - `SOLD_OUT`: 상품 품절
 
 ### 🌿 장바구니 구매 `POST` `/api/payments/carts/purchase`
@@ -362,6 +362,6 @@ _장바구니에 담은 상품을 구매합니다._
   - `CART_NOT_FOUND`: 잘못된 장바구니 id를 요청한 경우
   - `CART_EMPTY`: 장바구니에 비어 있을 경우
   - `PRODUCT_NOT_FOUND`: 잘못된 상품 id를 요청한 경우
-  - `OUT_OF_STOCK`: 재고 부족
+  - `OUT_OF_STOCK`: 재고 부족 (body에 재고 부족한 상품 id 목록 반환)
   - `SOLD_OUT`: 상품 품절
 <br><br><br>
