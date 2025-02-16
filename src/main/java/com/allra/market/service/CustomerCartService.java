@@ -12,7 +12,6 @@ import com.allra.market.domain.customer.model.dto.response.GetCustomerCartRespon
 import com.allra.market.domain.customer.repository.CustomerCartRepository;
 import com.allra.market.domain.customer.type.QuantityType;
 import com.allra.market.domain.product.entity.Product;
-import com.allra.market.domain.product.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -26,8 +25,9 @@ import java.util.List;
 @Transactional(rollbackFor = Exception.class)
 public class CustomerCartService {
     private final CustomerProvider customerProvider;
+    private final ProductService productService;
+
     private final CustomerCartRepository customerCartRepository;
-    private final ProductRepository productRepository;
 
     // 장바구니 목록 조회
     public GetCustomerCartResponse list() {
@@ -45,12 +45,8 @@ public class CustomerCartService {
     // 장바구니 추가
     public Boolean insert(PostCustomerCartRequest dto) {
         Customer customer = customerProvider.getCustomer();
-        Product product = productRepository.findByIdAndEnabledIsTrue(dto.getProductId())
-                .orElseThrow(() -> new ApiException(ErrorCode.PRODUCT_NOT_FOUND, "존재하지 않는 상품 입니다."));
-
-        if (product.getQuantity() == 0) {
-            throw new ApiException(ErrorCode.SOLD_OUT, "품절된 상품 입니다.");
-        }
+        Product product =  productService.getProduct(dto.getProductId());
+        validateProduct(product.getQuantity());
 
         // 이미 장바구니에 있는 상품인지 확인
         CustomerCart existingCart = customerCartRepository.findByCustomerAndProduct(customer, product)
@@ -72,6 +68,8 @@ public class CustomerCartService {
         if (!cart.getProduct().getEnabled()) {
             throw new ApiException(ErrorCode.PRODUCT_NOT_FOUND, "존재하지 않는 상품 입니다.");
         }
+
+        validateProduct(cart.getProduct().getQuantity());
 
         if (dto.getType() == QuantityType.PLUS) {
             cart.incrementQuantity();
@@ -96,12 +94,27 @@ public class CustomerCartService {
         return true;
     }
 
-    public CustomerCart getCustomerCart(Long id) {
+    // 상품 유효성 검사
+    private void validateProduct(Integer quantity) {
+        if (quantity == 0) {
+            throw new ApiException(ErrorCode.SOLD_OUT, "품절된 상품 입니다.");
+        }
+    }
+
+    private CustomerCart getCustomerCart(Long id) {
         return customerCartRepository.findById(id)
                 .orElseThrow(() -> new ApiException(ErrorCode.CART_NOT_FOUND, "장바구니 항목을 찾을 수 없습니다."));
     }
 
-    public List<CustomerCart> getCustomerCarts(Customer customer) {
-        return customerCartRepository.findAllByCustomer(customer);
+    public List<CustomerCart> getCustomerCarts(Customer customer, List<Long> ids) {
+        // customer, customerCartIds에 해당하는 장바구니 목록 조회
+        List<CustomerCart> carts = customerCartRepository.findAllByCustomerAndIdIn(customer, ids);
+
+        // 모든 ids가 조회되었는지 확인
+        if (carts.size() != ids.size()) {
+            throw new ApiException(ErrorCode.CART_NOT_FOUND, "장바구니 항목을 찾을 수 없습니다.");
+        }
+
+        return carts;
     }
 }

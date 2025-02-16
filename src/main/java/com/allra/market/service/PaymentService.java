@@ -68,9 +68,9 @@ public class PaymentService {
     // 장바구니 구매
     public PostCustomerOrderResponse cartPurchase(PostCustomerOrderCartPaymentRequest dto) {
         Customer customer = customerProvider.getCustomer();
-        List<CustomerCart> carts = customerCartService.getCustomerCarts(customer);
+        List<CustomerCart> carts = customerCartService.getCustomerCarts(customer, dto.getCustomerCartIds());
 
-        if (carts.isEmpty()) {
+        if (carts.isEmpty() || dto.getCustomerCartIds().isEmpty()) {
             throw new ApiException(ErrorCode.CART_EMPTY, "장바구니가 비어있습니다.");
         }
 

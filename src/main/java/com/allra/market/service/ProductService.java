@@ -56,7 +56,7 @@ public class ProductService {
         return true;
     }
 
-    private Product getProduct(Long id) {
+    public Product getProduct(Long id) {
         return productRepository.findByIdAndEnabledIsTrue(id)
             .orElseThrow(() -> new ApiException(ErrorCode.PRODUCT_NOT_FOUND, "존재하지 않는 상품 입니다."));
     }
