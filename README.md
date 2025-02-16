@@ -1,10 +1,8 @@
 # 🛍️ Allra Market API
-***
 Allra Market API는 상품 관리, 장바구니 관리, 주문 조회, 결제를 제공합니다.  
 개발자 : 배소연
 
 ## 🛠️ 개발 환경
-***
 ### 💻 **Backend**  
   [![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.4.2-green)](https://spring.io/projects/spring-boot)
   [![Java](https://img.shields.io/badge/Java-17-orange)](https://www.oracle.com/java/)
@@ -23,7 +21,6 @@ Allra Market API는 상품 관리, 장바구니 관리, 주문 조회, 결제를
 [![Beeceptor](https://img.shields.io/badge/Beeceptor-FFD700?style=flat&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PC9zdmc+&logoColor=black)](https://beeceptor.com/)
 
 ## 🚀 시작하기 
-***
 ### 👤 Profile 설정
 profile을 `local`로 설정하여 빌드 및 실행합니다.
 
@@ -44,11 +41,9 @@ spring:
 `description/postman` 폴더에 있는 `올라 마켓.postman_collection.json`을 import하여 API 테스트를 진행할 수 있습니다.
 
 ## 📜 ERD
-***
 ![ERD.png](description/erd/ERD.png)
 
 ## 📦 상품 관리 API
-***
 > 상품을 관리하는 API입니다.
 ### ✨ 주요 특징
 - 물리삭제가 아닌 논리삭제를 사용하여 데이터 보존
@@ -144,7 +139,6 @@ _상품을 삭제합니다._
   - `PRODUCT_NOT_FOUND`: 잘못된 상품 id를 요청한 경우
 
 ## 🛒 장바구니 관리 API
-***
 > 사용자의 장바구니를 관리하는 API입니다.
 ### 🌿 목록 `GET` `/api/customers/carts`  
 _사용자의 장바구니 목록을 조회합니다._
@@ -209,7 +203,6 @@ _장바구니에 담은 상품을 삭제합니다._
 _장바구니를 모두 비웁니다._
 
 ## 📋 주문 조회 API
-***
 > 사용자의 주문을 조회하는 API입니다.
 ### ✨ 주요 특징
 - 상품 정보를 포함한 주문 목록 조회
@@ -267,7 +260,6 @@ _사용자의 주문 목록을 조회합니다._
   ```
 
 ### 💳 결제 API
-***
 > 장바구니 구매, 바로 구매를 통해 결제를 진행합니다.
 ### 🔄 주문 결제 프로세스
 ![img.png](description/process/주문_결제_프로세스.png)
