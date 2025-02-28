@@ -4,7 +4,7 @@ server:
         key-store: ssl/keystore.p12
         key-store-password: q1w2e3r4!!
         keyStoreType: PKCS12
-        keyAlias: spring-boot-allra-market
+        keyAlias: spring-boot-market
     http2:
         enabled: true
     servlet:
@@ -35,7 +35,7 @@ spring:
 logging:
     level:
         com:
-            allra:
+            api:
                 market: info
         root: error
 payment:

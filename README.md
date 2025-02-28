@@ -29,7 +29,7 @@
 src
 ├── main
 │   ├── java
-│   │   └── com.allra.market
+│   │   └── com.api.market
 │   │       ├── controller    # API endpoint
 │   │       ├── service       # 비즈니스 로직
 │   │       ├── domain        # 도메인 로직
@@ -58,14 +58,14 @@ spring:
   datasource:
     hikari:
       driver-class-name: org.mariadb.jdbc.Driver
-      jdbc-url: jdbc:mariadb://localhost:3306/allra_market
+      jdbc-url: jdbc:mariadb://localhost:3306/market
       username: { username }
       password: { password }
       pool-name: SpringBoot-3.4.2
 ```
 
 ### 📫 Postman 설정
-`description/postman` 폴더에 있는 `올라 마켓.postman_collection.json`을 import하여 API 테스트를 진행할 수 있습니다.
+`description/postman` 폴더에 있는 `마켓.postman_collection.json`을 import하여 API 테스트를 진행할 수 있습니다.
 
 ### 🔐 SSL 설정
 `/ssl/keystore.p12`에 인증서가 있습니다.

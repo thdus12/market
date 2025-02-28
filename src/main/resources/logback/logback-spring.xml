@@ -39,10 +39,10 @@
         </rollingPolicy>
     </appender>
 
-    <logger name="com.allra.market" level="DEBUG" additivity="false">
+    <logger name="com.api.market" level="DEBUG" additivity="false">
         <appender-ref ref="SAMPLE"/>
     </logger>
-    <logger name="com.allra.market" level="INFO" additivity="false">
+    <logger name="com.api.market" level="INFO" additivity="false">
         <appender-ref ref="DAILY_ROLLING_FILE_APPENDER"/>
     </logger>
     <root level="INFO">

@@ -1,0 +1,373 @@
+{
+	"info": {
+		"_postman_id": "cd137862-cc74-4736-b096-bceb17ad0217",
+		"name": "마켓",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "27717824"
+	},
+	"item": [
+		{
+			"name": "사용자",
+			"item": [
+				{
+					"name": "장바구니",
+					"item": [
+						{
+							"name": "목록",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BASE_URL}}/api/customers/carts",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"api",
+										"customers",
+										"carts"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "추가",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"productId\": 1,\r\n    \"quantity\": 2\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE_URL}}/api/customers/carts",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"api",
+										"customers",
+										"carts"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "수량 수정",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"type\" : \"MINUS\" // PLUS / MINUS\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE_URL}}/api/customers/carts/1/quantity",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"api",
+										"customers",
+										"carts",
+										"1",
+										"quantity"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "삭제",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{BASE_URL}}/api/customers/carts/1",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"api",
+										"customers",
+										"carts",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "전체 비우기",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{BASE_URL}}/api/customers/carts/clear",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"api",
+										"customers",
+										"carts",
+										"clear"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "주문",
+					"item": [
+						{
+							"name": "목록",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BASE_URL}}/api/customers/orders?startDate=2025-01-01&endDate=2025-12-31&status=",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"api",
+										"customers",
+										"orders"
+									],
+									"query": [
+										{
+											"key": "startDate",
+											"value": "2025-01-01",
+											"description": "시작일(등록일 기준)"
+										},
+										{
+											"key": "endDate",
+											"value": "2025-12-31",
+											"description": "종료일(등록일 기준)"
+										},
+										{
+											"key": "status",
+											"value": "",
+											"description": "PENDING / PAID / CANCELLED"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "상품",
+			"item": [
+				{
+					"name": "목록",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/api/products?startDate=2025-01-01&endDate=2025-12-31&searchText=",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"products"
+							],
+							"query": [
+								{
+									"key": "startDate",
+									"value": "2025-01-01",
+									"description": "시작일(등록일 기준)"
+								},
+								{
+									"key": "endDate",
+									"value": "2025-12-31",
+									"description": "종료일(등록일 기준)"
+								},
+								{
+									"key": "searchText",
+									"value": "",
+									"description": "검색어(상품명/상품설명 기준)"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "상세",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/api/products/1",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"products",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "등록",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"상품2\",\r\n    \"description\": \"상품2 입니다\",\r\n    \"price\": 1000,\r\n    \"quantity\": 10\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/api/products",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "수정",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"상품1\",\r\n    \"description\": \"<p>상품1 입니다</p>\",\r\n    \"price\": 1000,\r\n    \"quantity\": 10\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/api/products/2",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"products",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "삭제",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/api/products/1",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"products",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "결제",
+			"item": [
+				{
+					"name": "바로 구매",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"productId\": 1,\r\n    \"quantity\": 1,\r\n    \"type\": \"CARD\" // CARD / BANK_TRANSFER / VIRTUAL_ACCOUNT\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/api/payments/purchase",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"payments",
+								"purchase"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "장바구니 구매",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"customerCartIds\": [1],\r\n    \"type\":  \"CARD\" // CARD / BANK_TRANSFER / VIRTUAL_ACCOUNT\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/api/payments/carts/purchase",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"payments",
+								"carts",
+								"purchase"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
